@@ -1,0 +1,102 @@
+.content {
+  height: 100%;
+
+  .mainCard {
+    background-image: url("https://stats.quake.com/background.jpg");
+    background-size: auto 100%;
+
+    .statsContainer {
+      font-size: 0.8em;
+      color: white;
+
+      .playerCardContainer {
+        display: flex;
+        flex-direction: row;
+        color: white;
+        margin-bottom: 5px;
+        width: 260px;
+        height: 60px;
+
+        > .position {
+          padding: 20px 0;
+          width: 40px;
+        }
+
+        > .playerCard {
+          display: flex;
+          color: white;
+          background: none;
+
+          > .info {
+            display: flex;
+            flex-direction: row;
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            padding: 0;
+
+            > .avatar {
+              padding: 9px;
+              // width: 64px;
+              height: 100%;
+
+              img {
+                //   width: 100%;
+                height: 100%;
+              }
+            }
+
+            > .text {
+              padding: 7px;
+
+              > .elo {
+                display: flex;
+                flex-direction: row;
+                padding-top: 2px;
+
+                > img {
+                  width: 24px;
+                  height: 24px;
+                }
+
+                > .value {
+                  font-size: 1.2em;
+                  padding: 2px;
+                }
+              }
+            }
+          }
+
+          > img {
+            width: 100%;
+          }
+        }
+
+        &.streamer {
+          font-size: 1.2em;
+          width: 260px;
+          height: 64px;
+
+          > .playerCard {
+            .info {
+              .avatar {
+              }
+
+              .text {
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .loader {
+    display: flex;
+    height: 100%;
+    background: white;
+
+    justify-content: center;
+    align-items: center;
+  }
+}
