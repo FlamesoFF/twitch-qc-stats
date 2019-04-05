@@ -1,7 +1,7 @@
 export class TwitchConfiguration {
-  streamerName: string = "";
+  streamerName?: string = '';
 
-  constructor(configData) {
+  constructor(configData: {}) {
     Object.assign(this, configData);
   }
 }

@@ -3,6 +3,8 @@
   "compilerOptions": {
     "module": "commonjs",
     "target": "es6",
+    "strict": true,
+    "noImplicitThis": true,
     "moduleResolution": "node",
     "allowJs": false,
     "checkJs": false,
@@ -10,15 +12,18 @@
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "noEmit": false,
+    "noImplicitAny": false,
     "removeComments": true,
     "alwaysStrict": true,
     "esModuleInterop": true,
     "types": ["node", "webpack", "webpack-dev-server"],
     "typeRoots": ["/node_modules/@types"],
-    "lib": ["es2017", "dom"],
-    "outDir": "dist"
+    "lib": ["es2017", "dom", "webworker"],
+    "outDir": "dist",
+    "strictPropertyInitialization": false,
+    "strictNullChecks": false
   },
 
-  "include": ["./src/**/*.ts"],
+  "include": ["./src/**/*.ts", "src/api/rest.worker.js"],
   "exclude": ["/node_modules"]
 }

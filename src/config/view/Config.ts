@@ -8,7 +8,7 @@ import { AppView } from "../../shared/View";
 
 @Component({})
 export default class Config extends AppView {
-  private auth: Auth = undefined;
+  private auth: Auth;
 
   streamer = {
     name: undefined

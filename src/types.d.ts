@@ -4,9 +4,20 @@ declare module '*.vue' {
 }
 
 declare module 'vue/types/vue' {
-    // 3. Объявите расширение для Vue
     interface Vue {
-        $myProperty: string
+        validate: Function
+    }
+
+}
+
+declare module "file-loader?name=[name].js!*" {
+    const value: string;
+    export = value;
+}
+
+declare module "*.worker.ts" {
+    export default class WorkerModule extends Worker{
+        constructor();
     }
 }
 

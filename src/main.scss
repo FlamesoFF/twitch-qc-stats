@@ -1,5 +1,11 @@
 @font-face {
   font-family: "Kairos Sans W1G";
-  src: url("../assets/KairosSansW1G-Regular.woff") format("woff2"),
-    url("../assets/KairosSansW1G-Medium.woff") format("woff");
+  src: url("./assets/fonts/KairosSansW1G-Regular.woff") format("woff");
+  font-weight: normal;
+}
+
+@font-face {
+  font-family: "Kairos Sans W1G";
+  src: url("./assets/fonts/KairosSansW1G-Medium.woff") format("woff2");
+  font-weight: bold;
 }

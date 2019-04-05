@@ -1,6 +1,8 @@
 /node_modules
 /dist
+/prod
 /.vscode
 /.idea
 /images
+/screenshots
 yarn*

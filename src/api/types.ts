@@ -976,12 +976,3 @@ export namespace NQuakeAPI {
         timeLimit: number;
     }
 }
-
-export namespace NApp {
-    export interface IStreamer {
-        elo?: number;
-        name?: string;
-        iconId?: string;
-        namePlateId?: string;
-    }
-}

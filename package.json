@@ -1,11 +1,13 @@
 {
   "main": "main.js",
+  "version": "0.1.1",
   "devDependencies": {
     "@babel/core": "^7.2.0",
     "@types/axios": "^0.14.0",
     "@types/chrome": "^0.0.75",
     "@types/node": "^10.12.12",
     "@types/terser": "^3.8.0",
+    "@types/vue": "^2.0.0",
     "@types/webpack": "^4.4.20",
     "@types/webpack-dev-server": "^3.1.2",
     "babel-loader": "^8.0.4",
@@ -13,11 +15,14 @@
     "cross-env": "^5.2.0",
     "css-loader": "^2.0.0",
     "electron": "^4.0.4",
+    "express": "^4.16.4",
+    "extract-text-webpack-plugin": "^3.0.2",
     "file-loader": "^2.0.0",
     "html-loader": "^0.5.5",
     "html-webpack-plugin": "^3.2.0",
     "image-webpack-loader": "^4.6.0",
     "node-sass": "^4.10.0",
+    "resolve-url-loader": "^3.0.1",
     "sass-loader": "^7.1.0",
     "style-loader": "^0.23.1",
     "terser-webpack-plugin": "^1.1.0",
@@ -28,12 +33,16 @@
     "typescript": "^3.2.1",
     "typescript-register": "^1.1.0",
     "uglifyjs-webpack-plugin": "^2.0.1",
+    "url-loader": "^1.1.2",
     "vue-loader": "^15.6.2",
     "vue-style-loader": "^4.1.2",
     "vue-template-compiler": "^2.5.17",
+    "vuex": "^3.1.0",
     "webpack": "^4.27.1",
-    "webpack-cli": "^3.1.2",
-    "webpack-dev-server": "^3.1.14"
+    "webpack-cli": "^3.2.3",
+    "webpack-dev-server": "^3.1.14",
+    "webpack-merge": "^4.2.1",
+    "worker-loader": "^2.0.0"
   },
   "dependencies": {
     "axios": "^0.18.0",
@@ -47,7 +56,8 @@
   },
   "scripts": {
     "start": "webpack-dev-server -r ts-node/register --mode development",
-    "build": "webpack --config webpack.config.ts",
+    "build": "webpack --config webpack.config.dev.ts",
+    "build-prod": "webpack --config webpack.config.prod.ts",
     "electron": "electron ."
   }
 }
