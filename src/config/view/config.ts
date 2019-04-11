@@ -15,19 +15,19 @@ export default class Config extends AppView {
   };
 
   // hooks
-  beforeMount() {
+  created(){
     this.twitchAPI.onAuthorized(authData => {
       this.auth = new Auth(authData);
     });
 
     this.twitchAPI.configuration.onChanged(() => {
       if (
-        this.twitchAPI.configuration.broadcaster &&
-        this.twitchAPI.configuration.broadcaster.content
+          this.twitchAPI.configuration.broadcaster &&
+          this.twitchAPI.configuration.broadcaster.content
       ) {
         try {
           this.config = JSON.parse(
-            this.twitchAPI.configuration.broadcaster.content
+              this.twitchAPI.configuration.broadcaster.content
           );
           this.streamer.name = this.config.streamerName;
         } catch (error) {
@@ -35,6 +35,10 @@ export default class Config extends AppView {
         }
       }
     });
+  }
+
+  beforeMount() {
+
   }
 
   async saveConfig() {

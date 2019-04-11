@@ -12,6 +12,5 @@
   </v-app>
 </template>
 
-<script lang="ts" src="./Config.ts"></script>
-
+<script lang="ts" src="./config.ts"></script>
 <style lang="scss" scoped></style>
