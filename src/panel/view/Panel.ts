@@ -49,11 +49,9 @@ export default class App extends AppView {
         return store.state.streamer;
     }
 
-    beforeCreate() {
-    }
 
     // hooks
-    beforeMount() {
+    created() {
         this.twitchAPI.configuration.onChanged(() => {
             if (
                 this.twitchAPI.configuration.broadcaster &&
@@ -72,7 +70,9 @@ export default class App extends AppView {
                 }
             }
         });
+    }
 
+    beforeMount() {
     }
 
     mounted() {

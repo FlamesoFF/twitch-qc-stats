@@ -11,7 +11,6 @@
 
 
         <v-card class="mainCard"
-                height="100%"
                 v-if="!busy">
 
             <app-search></app-search>

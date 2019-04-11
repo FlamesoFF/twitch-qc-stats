@@ -10,7 +10,7 @@
                 top
                 right
                 v-if="!enabled"
-                @click="$vuetify.goTo('body', options); enable()"
+                @click="$vuetify.goTo('body'); enable()"
         >
             <v-icon>search</v-icon>
         </v-btn>
