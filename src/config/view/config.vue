@@ -8,6 +8,14 @@
       <v-text-field label="Your in-game nickname:" v-model="streamer.name"></v-text-field>
 
       <v-btn @click="saveConfig()" color="info">Save</v-btn>
+
+      <v-alert
+        v-show="alert"
+        type="success"
+        transition="fade-transition"
+      >
+        Saved
+      </v-alert>
     </v-container>
   </v-app>
 </template>

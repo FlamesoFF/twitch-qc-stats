@@ -10,24 +10,23 @@ import { AppView } from "../../shared/View";
 export default class Config extends AppView {
   private auth: Auth;
 
-  streamer = {
-    name: undefined
-  };
+  streamer = { name: undefined };
+  alert: boolean = false;
 
   // hooks
-  created(){
+  created() {
     this.twitchAPI.onAuthorized(authData => {
       this.auth = new Auth(authData);
     });
 
     this.twitchAPI.configuration.onChanged(() => {
       if (
-          this.twitchAPI.configuration.broadcaster &&
-          this.twitchAPI.configuration.broadcaster.content
+        this.twitchAPI.configuration.broadcaster &&
+        this.twitchAPI.configuration.broadcaster.content
       ) {
         try {
           this.config = JSON.parse(
-              this.twitchAPI.configuration.broadcaster.content
+            this.twitchAPI.configuration.broadcaster.content
           );
           this.streamer.name = this.config.streamerName;
         } catch (error) {
@@ -49,5 +48,15 @@ export default class Config extends AppView {
     });
 
     this.twitchAPI.configuration.set(segment, version, content);
+
+    this.showAlert();
+  }
+
+  async showAlert() {
+    this.alert = true;
+
+    setTimeout(() => {
+      this.alert = false;
+    }, 2000);
   }
 }

@@ -1,6 +1,6 @@
 import webpack from "webpack";
 import path from 'path';
-import merge from 'webpack-merge';
+import webpackMerge from 'webpack-merge';
 
 import commonCfg from './webpack.config.common';
 
@@ -14,4 +14,4 @@ const devConfig : webpack.Configuration = {
     watch: true
 };
 
-export default merge(commonCfg, devConfig);
+export default webpackMerge(commonCfg, devConfig);
