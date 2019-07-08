@@ -26,6 +26,10 @@
                             :data="streamer">
                     </app-player-card>
 
+<!--                    <app-player-details-->
+<!--                            :name="streamer.userName"-->
+<!--                    ></app-player-details>-->
+
                 </div>
 
                 <h3>Top 10</h3>
@@ -45,5 +49,15 @@
 </template>
 
 
-<script lang="ts" src="./panel.ts"></script>
+<script lang="ts">
+    import Vue from "vue";
+    import {Component} from "vue-class-component";
+    import AppPlayerDetails from "./player-details/player-details";
+
+    @Component({
+        components: {AppPlayerDetails}
+    })
+    export default class panel extends Vue {
+    }
+</script>
 <style lang="scss" src="./panel.scss"></style>

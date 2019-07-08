@@ -9,13 +9,15 @@ import {getRankIcon} from "../../shared/ranks";
 import AppSearch from "./search/search.vue";
 import AppPlayerCard from "./player-card/player-card.vue";
 import {MUTATIONS} from "../store/mutations";
+import AppPlayerDetails from "./player-details/player-details.vue";
 
 @Component({
     name: 'Panel',
 
     components: {
         'app-search': AppSearch,
-        'app-player-card': AppPlayerCard
+        'app-player-card': AppPlayerCard,
+        'app-player-details': AppPlayerDetails,
     }
 })
 export default class App extends AppView {

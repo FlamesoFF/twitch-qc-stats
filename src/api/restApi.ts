@@ -85,6 +85,24 @@ export class API {
         return this.workerResponse<NQuakeAPI.IPlayerStats>(type);
     }
 
+    async getGamesSummary(name: string): Promise<IRestWorkerResponse<NQuakeAPI.IGamesSummary>> {
+        // https://stats.quake.com/api/v2/Player/GamesSummary?name
+        const url = `${this.baseUrl}/Player/GamesSummary?name=${name}`;
+        const type = 'gamesSummary';
+
+        let parameters = new RestWorkerParams<NQuakeAPI.IGamesSummary>({
+            method: 'GET',
+            type,
+            url
+        });
+
+        this.restWorker.postMessage(parameters);
+
+        return this.workerResponse<NQuakeAPI.IGamesSummary>(type);
+    }
+
+
+
     private workerResponse<T>(type: string): Promise<IRestWorkerResponse<T>> {
         return new Promise<IRestWorkerResponse<T>>((resolve, reject) => {
             const listener = (event) => {

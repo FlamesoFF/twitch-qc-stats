@@ -975,4 +975,35 @@ export namespace NQuakeAPI {
         scoreLimit: number;
         timeLimit: number;
     }
+
+    export interface IGamesSummaryMatchesItem {
+        id: string;
+        time: string;
+        mapName: string;
+        rank: number;
+        score: number[];
+        gameMode: string;
+        won: boolean;
+        xp: number;
+        kdr: number;
+        totalDamage: number;
+        weaponAccuracy: IGamesSummaryWeaponAccuracy;
+    }
+    export interface IGamesSummaryWeaponAccuracy {
+        GAUNTLET: number;
+        MACHINEGUN: number;
+        MACHINEGUN_GRADE1: number;
+        SHOTGUN: number;
+        SHOTGUN_GRADE1: number;
+        NAILGUN: number;
+        NAILGUN_GRADE1: number;
+        ROCKET_LAUNCHER: number;
+        LIGHTNING_GUN: number;
+        RAILGUN: number;
+        LAGBOLT: number;
+    }
+
+    export  interface IGamesSummary {
+        matches: IGamesSummaryMatchesItem[]
+    }
 }
