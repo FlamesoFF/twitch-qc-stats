@@ -1,0 +1,81 @@
+.playerCardContainer {
+  display: flex;
+  flex-direction: row;
+  color: white;
+  margin-bottom: 5px;
+  width: 230px;
+  height: 50px;
+  text-shadow: 1px 1px 2px black;
+
+  > .position {
+    padding: 15px 0;
+    width: 40px;
+  }
+
+  > .playerCard {
+    display: flex;
+    color: white;
+    background: none;
+
+    > .info {
+      display: flex;
+      flex-direction: row;
+      align-items: flex-start;
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      padding: 0;
+
+      > .avatar {
+        padding: 8px;
+        height: 50px;
+        width: 50px;
+
+        img {
+          height: 100%;
+          width: 100%;
+        }
+      }
+
+      > .text {
+        padding: 6px;
+
+        > .elo {
+          display: flex;
+          flex-direction: row;
+          padding-top: 2px;
+
+          > img {
+            width: 20px;
+            height: 20px;
+          }
+
+          > .value {
+            font-size: 1.1em;
+            padding: 0 0 0 4px;
+          }
+        }
+      }
+    }
+
+    > img {
+      width: 100%;
+    }
+  }
+/*
+  &.streamer {
+    font-size: 1.2em;
+    width: 260px;
+    height: 64px;
+
+    > .playerCard {
+      .info {
+        .avatar {
+        }
+
+        .text {
+        }
+      }
+    }
+  }*/
+}

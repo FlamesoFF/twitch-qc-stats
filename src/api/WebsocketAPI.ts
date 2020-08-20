@@ -1,3 +1,4 @@
+// TODO
 // export class WebsocketAPI {
 //     private worker: Worker = new Worker('./WebsocketWorker.ts');
 //     // private socket: WebSocket = new WebSocket();

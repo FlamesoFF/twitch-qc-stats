@@ -7,7 +7,7 @@ import commonCfg from './webpack.config.common';
 const devConfig : webpack.Configuration = {
     mode: 'development',
     output: {
-        path: path.join(__dirname, './dist/'),
+        path: path.join(__dirname, './dist'),
         filename: '[name].bundle.js'
     },
     devtool: 'source-map',

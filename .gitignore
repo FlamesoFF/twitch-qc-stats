@@ -3,6 +3,5 @@
 /prod
 /.vscode
 /.idea
-/images
-/screenshots
-yarn*
+
+yarn*.log

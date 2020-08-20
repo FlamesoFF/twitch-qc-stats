@@ -39,3 +39,13 @@ export const getRankIcon = (rating: number): string => {
     }
 };
 
+
+export const setDefaultAvatar = ($event) => {
+    $event.target.src = "./assets/images/profile_icon_01.png";
+}
+
+export const setDefaultPlate = ($event) => {
+    $event.target.src =
+        "./assets/images/nameplate_default.png";
+}
+

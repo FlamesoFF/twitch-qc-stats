@@ -1,0 +1,51 @@
+.playerDetails {
+  width: 100%;
+  height: auto;
+  background: rgba(64,64,64, 0.5);
+  display: flex;
+  flex-direction: column;
+
+  .info {
+    padding: 10px 20px;
+    display: flex;
+    flex-direction: column;
+
+    .row {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+
+
+      >.avatar{
+        $size: 32px;
+        width: $size;
+        height: $size;
+
+        img{
+          width: $size;
+          height: $size;
+        }
+      }
+
+      >.name{
+        font-size: 1em;
+      }
+    }
+
+    .elo {
+      position: relative;
+      width: 38px;
+      height: 48px;
+
+      >div{
+        position: absolute;
+      }
+    }
+  }
+
+  .graph {
+    tab-item{
+      display: flex;
+    }
+  }
+}

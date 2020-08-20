@@ -9,18 +9,19 @@ import Vuetify from "vuetify";
 import Config from "./view/config.vue";
 
 declare global {
-  interface Window {
-    Twitch: any;
-  }
+    interface Window {
+        Twitch: any;
+    }
 }
 
 Vue.use(Vuetify);
 
 new Vue({
-  el: "#root",
+    el: "#root",
 
-  template: "<Config/>",
-  render: h => h(Config),
+    template: "<Config/>",
+    render: h => h(Config),
 
-  beforeCreate() {}
+    beforeCreate() {
+    }
 });

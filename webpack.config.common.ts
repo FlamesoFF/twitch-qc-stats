@@ -6,8 +6,7 @@ import CopyWebpackPlugin from 'copy-webpack-plugin';
 const commonCfg: webpack.Configuration = {
     entry: {
         panel: './src/panel/index.ts',
-        config: './src/config/index.ts',
-        worker: './src/api/rest.worker.js'
+        config: './src/config/index.ts'
     },
 
     target: 'web',
@@ -34,7 +33,12 @@ const commonCfg: webpack.Configuration = {
             {
                 test: /\.ts$/,
                 use: [
-                    "ts-loader"
+                    {
+                        loader: "ts-loader",
+                        options: {
+                            appendTsSuffixTo: ['\.vue$']
+                        }
+                    }
                 ]
             },
 
