@@ -40,11 +40,11 @@ export const getRankIcon = (rating: number): string => {
 };
 
 
-export const setDefaultAvatar = ($event) => {
+export const setDefaultAvatar = ($event: any) => {
     $event.target.src = "./assets/images/profile_icon_01.png";
 }
 
-export const setDefaultPlate = ($event) => {
+export const setDefaultPlate = ($event: any) => {
     $event.target.src =
         "./assets/images/nameplate_default.png";
 }

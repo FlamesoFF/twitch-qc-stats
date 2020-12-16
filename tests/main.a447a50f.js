@@ -10182,7 +10182,7 @@
     (e.exports = function(e) {
         return r[e] || (r[e] = o && i[e] || (o ? i : a)("Symbol." + e))
     }
-    ).store = r
+    ).index = r
 }
 , function(e, t, n) {
     "use strict";

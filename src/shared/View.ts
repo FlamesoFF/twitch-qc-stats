@@ -1,17 +1,17 @@
-import Vue from "vue";
-import { TwitchConfiguration } from "./TwitchConfiguration";
+import {TwitchConfiguration} from "./TwitchConfiguration";
+import {Vue} from "vue-class-component";
 
 export class AppView extends Vue {
-  protected busy: boolean = false;
-  
-  twitchAPI = window.Twitch.ext;
-  config: TwitchConfiguration = {};
+    protected busy: boolean = false;
 
-  enableBusy() {
-    this.busy = true;
-  }
+    twitchAPI = window.Twitch.ext;
+    config: TwitchConfiguration = {};
 
-  disableBusy() {
-    this.busy = false;
-  }
+    enableBusy() {
+        this.busy = true;
+    }
+
+    disableBusy() {
+        this.busy = false;
+    }
 }

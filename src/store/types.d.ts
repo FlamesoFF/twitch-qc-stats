@@ -1,9 +1,9 @@
-import {NQuakeAPI} from "../api/types";
+import {NQuakeAPI} from "@/api/types";
 
 export interface ISearch {
-    enabled: false;
-    result: undefined;
-    error: false;
+    enabled: boolean;
+    result: NQuakeAPI.ILeaderboardItem;
+    error: boolean;
 }
 
 export interface IAppStoreState {

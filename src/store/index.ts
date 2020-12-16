@@ -1,29 +1,36 @@
-import Vue from 'vue';
-import Vuex from 'vuex';
-import {MUTATIONS} from "./mutations";
-import {NQuakeAPI} from "../api/types";
-import {RANKS} from '../shared/ranks';
-import {IAppStoreState} from "./types";
-
-Vue.use(Vuex);
+import {createStore} from 'vuex';
+import {NQuakeAPI} from "@/api/types";
+import {RANKS} from '@/shared/ranks';
+import {IAppStoreState} from "@/store/types";
 
 
-const appStore = new class {
-    state: IAppStoreState = {
+export enum MUTATIONS {
+    enableSearch = 'enableSearch',
+    saveSearchResult = 'saveSearchResult',
+    clearSearchResult = 'clearSearchResult',
+    disableSearch = 'disableSearch',
+    searchError = 'searchError',
+    searchStop = 'searchStop',
+    setStreamer = 'setStreamer',
+    resetSearch = 'resetSearch',
+}
+
+export default createStore<IAppStoreState>({
+    state: {
         search: {
             enabled: false,
-            result: undefined,
+            result: <any>{},
             error: false
         },
         streamer: {
-            userName: undefined,
-            profileIconId: undefined,
-            eloRating: undefined,
-            namePlateId: undefined
+            userName: '',
+            profileIconId: '',
+            eloRating: 0,
+            namePlateId: ''
         }
-    }
+    },
 
-    mutations = {
+    mutations: {
         [MUTATIONS.enableSearch](state) {
             state.search.enabled = true;
         },
@@ -37,7 +44,7 @@ const appStore = new class {
         },
 
         [MUTATIONS.clearSearchResult](state) {
-            state.search.result = undefined;
+            state.search.result = <any>{};
         },
 
         [MUTATIONS.searchError](state) {
@@ -49,13 +56,13 @@ const appStore = new class {
         },
 
         [MUTATIONS.resetSearch](state) {
-            state.search.result = undefined;
+            state.search.result = <any>{};
             state.search.error = false;
         }
-    }
+    },
 
-    getters = {
-        getRankIcon: store => rating => {
+    getters: {
+        getRankIcon: store => (rating: number) => {
             const min = 700;
             const max = 2200;
             const step = 75;
@@ -71,18 +78,13 @@ const appStore = new class {
             }
         },
 
-        defaultAvatar: store => $event => {
+        defaultAvatar: store => ($event: any) => {
             $event.target.src = "./assets/images/profile_icon_01.png";
         },
 
-        defaultPlate: store => $event => {
+        defaultPlate: store => ($event: any) => {
             $event.target.src = "./assets/images/nameplate_default.png";
         }
 
     }
-};
-
-
-const store = new Vuex.Store(appStore);
-
-export { store };
+});

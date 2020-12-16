@@ -1,7 +1,7 @@
-import { store } from '../../store/store';
+import {index} from '../../store';
 import Vue from "vue";
 import Component from "vue-class-component";
-import { NQuakeAPI } from "../../api/types";
+import {NQuakeAPI} from "../../api/types";
 
 @Component({
     name: 'app-player-card',
@@ -20,7 +20,7 @@ export default class AppPlayerCard extends Vue {
     }
 
     get store(){
-        return store;
+        return index;
     }
 
     openLink(name: string) {
