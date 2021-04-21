@@ -1,0 +1,13 @@
+// .eslintrc file (no extension)
+{
+  "extends": [
+    "react-app"
+  ],
+  "rules": {
+    "no-unused-vars": "warn",
+    "semi": "warn",
+    "no-extra-semi": "warn",
+    "semi-style": "warn",
+    "sort-imports": "warn"
+  }
+}

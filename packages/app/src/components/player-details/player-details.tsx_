@@ -1,0 +1,494 @@
+// import { Chart } from 'chart.js';
+// import { getChartDefaults, getDefaultOptions } from '../../shared/chart';
+// import { API } from "../../api/restApi";
+// import { getRankIcon } from '../../shared/ranks';
+// import { iCharts } from "./types";
+// import { IRestWorkerResponse } from "../../types/api/rest-worker-response.interface";
+// import { IGamesSummaryMatchesItem } from '../../types/quake-api/i-games-summary-matches.item.interface';
+// import { Container } from "react-bootstrap";
+// import { IGamesSummary } from "../../types/quake-api/i-games.summary.interface";
+// import React from "react";
+// import { WeaponsAccuracy } from "./weapons-accuracy.class";
+//
+//
+// function getRandArr(len: number) {
+//   function* getStat() {
+//     yield Math.round(Math.random() * 100);
+//   }
+//
+//   let arr = [];
+//   for (let i = 0; i < len; i++) {
+//     arr.push(getStat().next().value);
+//   }
+//
+//   return arr;
+// }
+//
+//
+// export default class AppPlayerDetails extends React.Component<any, any> {
+//   private stats: IRestWorkerResponse<IGamesSummary>;
+//   private charts: iCharts = {};
+//
+//   props: {
+//     readonly name: String
+//   }
+//   position = 0;
+//   headers = [
+//     {
+//       text: 'Gauntlet',
+//       value: 'name'
+//     },
+//     {text: 'Tribolt', value: 'tribolt'},
+//     {text: 'Fat (g)', value: 'fat'},
+//     {text: 'Carbs (g)', value: 'carbs'},
+//     {text: 'Protein (g)', value: 'protein'},
+//     {text: 'Iron (%)', value: 'iron'}
+//   ];
+//   accuracy!: WeaponsAccuracy;
+//   profileIconId = '';
+//   namePlateId = '';
+//   duelRating = 0;
+//   tdmRating = 0;
+//
+//   get getRankIcon() {
+//     return getRankIcon;
+//   }
+//
+//   created() {
+//     this.loadPlayerStats()
+//       .then(result => {
+//         this.accuracy = this.calculateAccuracy();
+//       })
+//       .catch(error => {
+//
+//       });
+//
+//   }
+//
+//   mounted() {
+//     let context = (this.$el.querySelector('#accuracyChart') as HTMLCanvasElement).getContext('2d');
+//
+//     this.charts.accuracy = new Chart(context, {
+//       type: 'line',
+//       data: {
+//         labels: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10'],
+//         datasets: [
+//
+//           {
+//             label: 'MG',
+//             data: getRandArr(10),
+//             borderColor: 'rgba(255, 255, 0, 1)',
+//             backgroundColor: 'rgba(255, 255, 0, 1)'
+//           },
+//
+//           {
+//             label: 'HMG',
+//             data: getRandArr(10),
+//             borderColor: 'rgba(255, 255, 0, 1)',
+//             backgroundColor: 'rgba(255, 255, 0, 1)'
+//           },
+//
+//           {
+//             label: 'SG',
+//             data: getRandArr(10),
+//             borderColor: 'rgba(255, 128, 0, 1)',
+//             backgroundColor: 'rgba(255, 128, 0, 1)'
+//           },
+//
+//           {
+//             label: 'SSG',
+//             data: getRandArr(10),
+//             borderColor: 'rgba(255, 128, 0, 1)',
+//             backgroundColor: 'rgba(255, 128, 0, 1)'
+//           },
+//
+//           {
+//             label: 'NG',
+//             data: getRandArr(10),
+//             borderColor: 'rgba(0, 64, 255, 1)',
+//             backgroundColor: 'rgba(0, 64, 255, 1)'
+//           },
+//
+//           {
+//             label: 'SNG',
+//             data: getRandArr(10),
+//             borderColor: 'rgba(0, 0, 255, 1)',
+//             backgroundColor: 'rgba(0, 0, 255, 1)'
+//           },
+//
+//           {
+//             label: 'TB',
+//             data: getRandArr(10),
+//             borderColor: 'rgba(200, 180, 0, 1)',
+//             backgroundColor: 'rgba(200, 180, 0, 1)'
+//           },
+//
+//           {
+//             label: 'LG',
+//             data: getRandArr(10),
+//             borderColor: 'rgba(0, 128, 255, 1)',
+//             backgroundColor: 'rgba(0, 128, 255, 1)'
+//           },
+//
+//           {
+//             label: 'RL',
+//             data: getRandArr(10),
+//             borderColor: 'rgba(255, 0, 0, 1)',
+//             backgroundColor: 'rgba(255, 0, 0, 1)'
+//           },
+//
+//           {
+//             label: 'RG',
+//             data: getRandArr(10),
+//             borderColor: 'rgba(0, 255, 0, 1)',
+//             backgroundColor: 'rgba(0, 255, 0, 1)'
+//           }
+//
+//         ].map(item => ({...getChartDefaults(), ...item}))
+//       },
+//       options: getDefaultOptions()
+//     });
+//
+//
+//     context = (this.$el.querySelector('#duelChart') as HTMLCanvasElement).getContext('2d');
+//
+//     this.charts.duel = new Chart(context, {
+//       type: 'line',
+//       data: {
+//         labels: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10'],
+//         datasets: [
+//
+//           {
+//             label: 'MG',
+//             data: getRandArr(10),
+//             borderColor: 'rgba(255, 255, 0, 1)',
+//             backgroundColor: 'rgba(255, 255, 0, 1)'
+//           },
+//
+//           {
+//             label: 'HMG',
+//             data: getRandArr(10),
+//             borderColor: 'rgba(255, 255, 0, 1)',
+//             backgroundColor: 'rgba(255, 255, 0, 1)'
+//           },
+//
+//           {
+//             label: 'SG',
+//             data: getRandArr(10),
+//             borderColor: 'rgba(255, 128, 0, 1)',
+//             backgroundColor: 'rgba(255, 128, 0, 1)'
+//           },
+//
+//           {
+//             label: 'SSG',
+//             data: getRandArr(10),
+//             borderColor: 'rgba(255, 128, 0, 1)',
+//             backgroundColor: 'rgba(255, 128, 0, 1)'
+//           },
+//
+//           {
+//             label: 'NG',
+//             data: getRandArr(10),
+//             borderColor: 'rgba(0, 64, 255, 1)',
+//             backgroundColor: 'rgba(0, 64, 255, 1)'
+//           },
+//
+//           {
+//             label: 'SNG',
+//             data: getRandArr(10),
+//             borderColor: 'rgba(0, 0, 255, 1)',
+//             backgroundColor: 'rgba(0, 0, 255, 1)'
+//           },
+//
+//           {
+//             label: 'TB',
+//             data: getRandArr(10),
+//             borderColor: 'rgba(200, 180, 0, 1)',
+//             backgroundColor: 'rgba(200, 180, 0, 1)'
+//           },
+//
+//           {
+//             label: 'LG',
+//             data: getRandArr(10),
+//             borderColor: 'rgba(0, 128, 255, 1)',
+//             backgroundColor: 'rgba(0, 128, 255, 1)'
+//           },
+//
+//           {
+//             label: 'RL',
+//             data: getRandArr(10),
+//             borderColor: 'rgba(255, 0, 0, 1)',
+//             backgroundColor: 'rgba(255, 0, 0, 1)'
+//           },
+//
+//           {
+//             label: 'RG',
+//             data: getRandArr(10),
+//             borderColor: 'rgba(0, 255, 0, 1)',
+//             backgroundColor: 'rgba(0, 255, 0, 1)'
+//           }
+//
+//         ].map(item => ({ ...getChartDefaults(), ...item }))
+//       },
+//       options: getDefaultOptions()
+//     });
+//
+//
+//     context = (this.$el.querySelector('#tdmChart') as HTMLCanvasElement).getContext('2d');
+//
+//     this.charts.tdm = new Chart(context, {
+//       type: 'line',
+//       data: {
+//         labels: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10'],
+//         datasets: [
+//
+//           {
+//             label: 'MG',
+//             data: getRandArr(10),
+//             borderColor: 'rgba(255, 255, 0, 1)',
+//             backgroundColor: 'rgba(255, 255, 0, 1)'
+//           },
+//
+//           {
+//             label: 'HMG',
+//             data: getRandArr(10),
+//             borderColor: 'rgba(255, 255, 0, 1)',
+//             backgroundColor: 'rgba(255, 255, 0, 1)'
+//           },
+//
+//           {
+//             label: 'SG',
+//             data: getRandArr(10),
+//             borderColor: 'rgba(255, 128, 0, 1)',
+//             backgroundColor: 'rgba(255, 128, 0, 1)'
+//           },
+//
+//           {
+//             label: 'SSG',
+//             data: getRandArr(10),
+//             borderColor: 'rgba(255, 128, 0, 1)',
+//             backgroundColor: 'rgba(255, 128, 0, 1)'
+//           },
+//
+//           {
+//             label: 'NG',
+//             data: getRandArr(10),
+//             borderColor: 'rgba(0, 64, 255, 1)',
+//             backgroundColor: 'rgba(0, 64, 255, 1)'
+//           },
+//
+//           {
+//             label: 'SNG',
+//             data: getRandArr(10),
+//             borderColor: 'rgba(0, 0, 255, 1)',
+//             backgroundColor: 'rgba(0, 0, 255, 1)'
+//           },
+//
+//           {
+//             label: 'TB',
+//             data: getRandArr(10),
+//             borderColor: 'rgba(200, 180, 0, 1)',
+//             backgroundColor: 'rgba(200, 180, 0, 1)'
+//           },
+//
+//           {
+//             label: 'LG',
+//             data: getRandArr(10),
+//             borderColor: 'rgba(0, 128, 255, 1)',
+//             backgroundColor: 'rgba(0, 128, 255, 1)'
+//           },
+//
+//           {
+//             label: 'RL',
+//             data: getRandArr(10),
+//             borderColor: 'rgba(255, 0, 0, 1)',
+//             backgroundColor: 'rgba(255, 0, 0, 1)'
+//           },
+//
+//           {
+//             label: 'RG',
+//             data: getRandArr(10),
+//             borderColor: 'rgba(0, 255, 0, 1)',
+//             backgroundColor: 'rgba(0, 255, 0, 1)'
+//           }
+//
+//         ].map(item => ({ ...getChartDefaults(), ...item }))
+//       },
+//       options: getDefaultOptions()
+//     });
+//
+//
+//     context = (this.$el.querySelector('#generalChart') as HTMLCanvasElement).getContext('2d');
+//
+//     this.charts.general = new Chart(context, {
+//       type: 'radar',
+//       data: {
+//         labels: ['accuracy', 'stability', 'KDR'],
+//         datasets: [
+//
+//           {
+//             label: '',
+//             data: getRandArr(3),
+//             borderJoinStyle: 'miter',
+//             borderColor: 'rgba(255, 255, 255, 0.5)',
+//             backgroundColor: 'rgba(255, 255, 255, 0.5)',
+//             fill: true
+//           }
+//
+//         ].map(item => ({ ...getChartDefaults(), ...item }))
+//       },
+//       options: {
+//         scale: {
+//           gridLines: {
+//             color: "rgba(255,255,255,0.1)"
+//           },
+//           angleLines: {
+//             color: "rgba(255,255,255,0.1)"
+//           }
+//         }
+//       }
+//     });
+//   }
+//
+//   async loadPlayerStats() {
+//     const gamesSummary = await API.getGamesSummary(this.props.name);
+//     const playerStats = await API.getPlayerStats(this.props.name);
+//
+//     const {
+//       data: {
+//         name,
+//         playerLoadOut: {
+//           iconId,
+//           namePlateId
+//         },
+//         playerRatings: {
+//           duel: {rating: duelRating},
+//           tdm: {rating: tdmRating}
+//         }
+//       }
+//     } = playerStats;
+//
+//     this.profileIconId = iconId;
+//     this.namePlateId = namePlateId;
+//     this.duelRating = duelRating;
+//     this.tdmRating = tdmRating;
+//
+//     // this.data = playerStats.data;
+//
+//     // background - image: url(./assets/images / ${ data.profileIconId }.png);
+//
+//     this.stats = gamesSummary;
+//   }
+//
+//   calculateAccuracy() {
+//     const {matches} = this.stats.data;
+//     const accuracy = new WeaponsAccuracy();
+//
+//     // summ accuracies
+//     matches.forEach((match: IGamesSummaryMatchesItem) => {
+//       const {weaponAccuracy} = match;
+//
+//       Object.keys(weaponAccuracy).forEach(key => {
+//         accuracy[key] += weaponAccuracy[key];
+//       });
+//     });
+//
+//     // round to precision and return number
+//     function toFixed(number, precision) {
+//       return Number(Number(number).toFixed(precision));
+//     }
+//
+//     // calc arithmetical mean
+//     Object.keys(accuracy).forEach(key => {
+//       accuracy[key] = toFixed(accuracy[key] / matches.length, 1)
+//     });
+//
+//     return accuracy;
+//   }
+//
+//   render() {
+//     return (
+//       <Container>
+//         <div class="playerDetails">
+//
+//           <div class="info">
+//
+//             <div class="row">
+//
+//               <div class="avatar">
+//                 <img src={`./assets/images/${profileIconId}.png`}
+//                   error="setDefaultAvatar($event)"/>
+//               </div>
+//
+//               <span
+//                 class="name"
+//               click="openLink(userName)">userName</span>
+//
+//             <div class="elo">
+//
+//               <div class="duel">
+//                 <img src="`./assets/images/${getRankIcon(duelRating)}`">
+//                 <div class="value">{{duelRating}}</div>
+//               </div>
+//
+//               <div class="tdm">
+//                 <img src="`./assets/images/${getRankIcon(tdmRating)}`">
+//                 <div class="value">{{tdmRating}}</div>
+//               </div>
+//
+//             </div>
+//
+//           </div>
+//
+//         </div>
+//
+//         <div class="graph">
+//
+//           <v-tabs>
+//             <v-tab>WEAPONS</v-tab>
+//             <v-tab>DUEL</v-tab>
+//             <v-tab>TEAM</v-tab>
+//             <v-tab>STAT</v-tab>
+//
+//             <v-tab-item>
+//               <canvas
+//                 id="accuracyChart"
+//                 width="300"
+//                 height="245"
+//               ></canvas>
+//             </v-tab-item>
+//
+//             <v-tab-item>
+//               <canvas
+//                 id="duelChart"
+//                 width="300"
+//                 height="245"
+//               ></canvas>
+//             </v-tab-item>
+//
+//             <v-tab-item>
+//               <canvas
+//                 id="tdmChart"
+//                 width="300"
+//                 height="245"
+//               ></canvas>
+//             </v-tab-item>
+//
+//             <v-tab-item>
+//               <canvas
+//                 id="generalChart"
+//                 width="300"
+//                 height="245"
+//               ></canvas>
+//             </v-tab-item>
+//
+//           </v-tabs>
+//
+//         </div>
+//
+//       </div>
+//       </Container>
+//     );
+//   }
+//
+// }
