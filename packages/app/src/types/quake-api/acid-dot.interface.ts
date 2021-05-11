@@ -1,4 +1,4 @@
-export interface ACID_DOT {
+export interface AcidDot {
     hits: number;
     shots: number;
     kills: number;

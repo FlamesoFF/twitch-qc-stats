@@ -1,4 +1,4 @@
-export interface ACID {
+export interface Acid {
     hits: number;
     shots: number;
     kills: number;

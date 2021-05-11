@@ -1,4 +1,4 @@
-export interface ABILITY_BERSERK {
+export interface AbilityBerserk {
     hits: number;
     shots: number;
     kills: number;
