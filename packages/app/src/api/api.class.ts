@@ -1,22 +1,23 @@
 import axios from "axios";
 import { TermSearchResult } from "../types/api/term-search-result.interface";
-import { IGamesSummary } from "../types/quake-api/i-games.summary.interface";
-import { ILeaderboard } from "../types/quake-api/leaderboard.interface";
-import { IPlayerStats } from "../types/quake-api/player-stats.interface";
+import { GamesSummary } from "../types/quake-api/games.summary.interface";
+import { Leaderboard } from "../types/quake-api/leaderboard.interface";
+import { PlayerStats } from "../types/quake-api/player-stats.interface";
+import { OFFICIAL_STATS_URL } from "../constants";
 
 export const statsApi = new class {
-  private baseUrl = "https://stats.quake.com/api/v2";
+  private baseUrl = `${OFFICIAL_STATS_URL}/api/v2`;
 
-  async getLeaders(from = 0): Promise<ILeaderboard> {
+  async getLeaders(from = 0): Promise<Leaderboard> {
     const url = `${this.baseUrl}/Leaderboard`;
 
     return await axios.get(url, {
       params: {
-        from,
         board: 'duel',
+        from,
         season: 'current'
       }
-    });
+    }).then(response => response.data);
   }
 
   async searchTerm(name: string): Promise<TermSearchResult> {
@@ -26,22 +27,22 @@ export const statsApi = new class {
       params: {
         term: encodeURIComponent(name)
       }
-    });
+    }).then(response => response.data);
   }
 
-  async getPlayerStats(name: string): Promise<IPlayerStats> {
+  async getPlayerStats(name: string): Promise<PlayerStats> {
     const url = `${this.baseUrl}/Player/Stats`;
 
     return await axios.get(url, {
       params: { name: encodeURIComponent(name) }
-    });
+    }).then(response => response.data);
   }
 
-  async getGamesSummary(name: string): Promise<IGamesSummary> {
+  async getGamesSummary(name: string): Promise<GamesSummary> {
     const url = `${this.baseUrl}/Player/GamesSummary`;
 
     return await axios.get(url, {
       params: { name }
-    });
+    }).then(response => response.data);
   }
 }();

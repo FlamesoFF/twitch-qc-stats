@@ -4,9 +4,9 @@
 // import { getRankIcon } from '../../shared/ranks';
 // import { iCharts } from "./types";
 // import { IRestWorkerResponse } from "../../types/api/rest-worker-response.interface";
-// import { IGamesSummaryMatchesItem } from '../../types/quake-api/i-games-summary-matches.item.interface';
+// import { GamesSummaryMatchesItem } from '../../types/quake-api/i-games-summary-matches.item.interface';
 // import { Container } from "react-bootstrap";
-// import { IGamesSummary } from "../../types/quake-api/i-games.summary.interface";
+// import { GamesSummary } from "../../types/quake-api/i-games.summary.interface";
 // import React from "react";
 // import { WeaponsAccuracy } from "./weapons-accuracy.class";
 //
@@ -26,7 +26,7 @@
 //
 //
 // export default class AppPlayerDetails extends React.Component<any, any> {
-//   private stats: IRestWorkerResponse<IGamesSummary>;
+//   private stats: IRestWorkerResponse<GamesSummary>;
 //   private charts: iCharts = {};
 //
 //   props: {
@@ -385,7 +385,7 @@
 //     const accuracy = new WeaponsAccuracy();
 //
 //     // summ accuracies
-//     matches.forEach((match: IGamesSummaryMatchesItem) => {
+//     matches.forEach((match: GamesSummaryMatchesItem) => {
 //       const {weaponAccuracy} = match;
 //
 //       Object.keys(weaponAccuracy).forEach(key => {

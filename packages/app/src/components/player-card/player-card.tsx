@@ -1,72 +1,79 @@
+import './player-card.scss';
 import React from 'react';
-import { Card, Container } from "react-bootstrap";
-import store from "../../store/store";
-import { ILeaderboardItem } from '../../types/quake-api/leaderboard-item.interface';
-import { defaults } from "../../static/defaults";
-import { getRankIcon } from "../../utils/rank.utils";
+import moment from "moment";
+import { Col, Container, Row } from "react-bootstrap";
+import { DEFAULT_AVATAR, DEFAULT_PLATE, OFFICIAL_STATS_URL } from "../../constants";
+import { selectActiveUserStats } from "../../store/selectors/streamer.selectors";
+import { PlayerStats } from "../../types/quake-api/player-stats.interface";
+import { GameMode } from "../../types/quake-api/game-mode.interface";
+import { Champion } from "../../types/quake-api/champion.interface";
 
-interface Props {
-  position: number
-  data?: ILeaderboardItem,
-}
 
-export default class AppPlayerCard extends React.Component<Props> {
-  state = store.getState();
-
-  private domRefs = {
-    avatarImage: React.createRef<HTMLImageElement>(),
-    plateImage: React.createRef<HTMLImageElement>()
-  };
-
-  openLink(name: string) {
-    window.open(`https://stats.quake.com/profile/${name}`);
+export default class AppPlayerCard extends React.Component {
+  state = {
+    avatar: DEFAULT_AVATAR,
+    plate: DEFAULT_PLATE,
   }
 
-  private setDefaultAvatar() {
-    const { current: el } = this.domRefs.avatarImage;
-
-    if (el) el.src = defaults.avatar;
+  get activePlayer(): PlayerStats {
+    return selectActiveUserStats();
   }
 
-  private setDefaultPlate() {
-    const { current: el } = this.domRefs.plateImage;
+  get playerTotalMatches() {
+    return this.activePlayer.playerRatings.duel.gamesCount
+      + this.activePlayer.playerRatings.tdm.gamesCount;
+  }
 
-    if (el) el.src = defaults.plate;
+  get totalTimePlayed(): string {
+    let time = 0;
+
+    for (let champion of Object.values<Champion>(this.activePlayer.playerProfileStats.champions)) {
+      for (let gm of Object.values<GameMode>(champion.gameModes)) {
+        time += gm.timePlayed;
+      }
+    }
+
+    return moment.duration(time, 'milliseconds').asHours().toFixed(0);
+  }
+
+  openLink() {
+    if (this.activePlayer.name) {
+      window.open(`${ OFFICIAL_STATS_URL }/profile/${ this.activePlayer.name }`);
+    }
   }
 
   render() {
     return (
-      <Container>
-        <div className="playerCardContainer">
-          <h3 className="position">{this.props.position}</h3>
-
-          <Card className="playerCard">
-            <Container className="info">
-              <div className='avatar'>
-                <img ref={this.domRefs.avatarImage}
-                  src={`./assets/images/${this.props.data?.profileIconId}.png`}
-                  onError={this.setDefaultAvatar}/>
-              </div>
-
-              <div className="text">
-                <span onClick={() => this.props.data?.userName ? this.openLink(this.props.data?.userName) : null}>
-                  {this.props.data?.userName}
-                </span>
-
-
-                <div className={"elo"}>
-                  <img src={this.props.data?.eloRating ? `./assets/images/${getRankIcon(this.props.data?.eloRating)}` : ''}/>
-                  <div className="value">{this.props.data?.eloRating}</div>
-                </div>
-
-              </div>
-            </Container>
-
-            <img ref={this.domRefs.plateImage}
-              src={`./assets/images/${this.props.data?.namePlateId}.png`}
-              onError={this.setDefaultPlate}/>
-          </Card>
+      <Container className="player-card p-1">
+        <div className="plate d-flex"
+             style={ {backgroundImage: `url(${ this.state.plate }), url(${ DEFAULT_PLATE })`} }>
         </div>
+        <div className="avatar"
+             style={ {backgroundImage: `url(${ this.state.avatar }), url(${ DEFAULT_AVATAR })`} }/>
+
+        <Row className="text-info">
+          <Col>
+            <Row className="name">
+              <Col className="p-1" onClick={ () => this.openLink() }>
+                { this.activePlayer.name }
+              </Col>
+            </Row>
+
+            <Row className="details">
+              <Col className="col-3 p-1">
+                <span>{ this.activePlayer.playerLevelState.level } lvl.</span>
+              </Col>
+
+              <Col className="col-5 p-1">
+                <span>{ this.playerTotalMatches } matches</span>
+              </Col>
+
+              <Col className="col-4 p-1">
+                <span>{ this.totalTimePlayed } hrs.</span>
+              </Col>
+            </Row>
+          </Col>
+        </Row>
       </Container>
     );
   }

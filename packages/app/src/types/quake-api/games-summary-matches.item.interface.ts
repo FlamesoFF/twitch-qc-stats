@@ -1,6 +1,6 @@
 import { IGamesSummaryWeaponAccuracy } from "./games-summary-weapon.accuracy.interface";
 
-export interface IGamesSummaryMatchesItem {
+export interface GamesSummaryMatchesItem {
     id: string;
     time: string;
     mapName: string;

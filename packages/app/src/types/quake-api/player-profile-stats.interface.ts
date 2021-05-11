@@ -1,5 +1,5 @@
-import { Champions } from "./champions.interface";
+import { Champion } from "./champion.interface";
 
-export interface IPlayerProfileStats {
-    champions: Champions;
+export interface PlayerProfileStats {
+    champions: { [key: string]: Champion };
 }

@@ -1,46 +1,48 @@
 @font-face {
   font-family: "Kairos Sans W1G";
-  src: url("../../../assets/fonts/KairosSansW1G-Regular.woff") format("woff");
+  src: url("~@app/shared/assets/fonts/KairosSansW1G-Regular.woff") format("woff");
   font-weight: normal;
 }
 
 @font-face {
   font-family: "Kairos Sans W1G";
-  src: url("../../../assets/fonts/KairosSansW1G-Medium.woff") format("woff2");
+  src: url("~@app/shared/assets/fonts/KairosSansW1G-Medium.woff") format("woff2");
   font-weight: bold;
 }
 
 ::-webkit-scrollbar {
     width: 2px;
 }
- 
+
 /* Track */
 ::-webkit-scrollbar-track {
-    -webkit-box-shadow: inset 0 0 6px    rgba(0,0,0,1); 
+    -webkit-box-shadow: inset 0 0 6px    rgba(0,0,0,1);
     -webkit-border-radius: 10px;
     // border-radius: 10px;
 }
- 
+
 /* Handle */
 ::-webkit-scrollbar-thumb {
     -webkit-border-radius: 10px;
     // border-radius: 10px;
-    background: rgba(0,0,0,0.8); 
+    background: rgba(0,0,0,0.8);
     -webkit-box-shadow: inset 0 0 6px rgba(255,255,255,0.25);
 }
 ::-webkit-scrollbar-thumb:window-inactive {
-	background: rgba(0,0,0,0.4); 
+	background: rgba(0,0,0,0.4);
 }
 
 html,
-body {
-  display: flex;
+body,
+#root {
+  margin: 0;
+  padding: 0;
   width: 100%;
   height: 100%;
 }
 
 body {
-  font-family: "Kairos Sans W1G" !important;
+  font-family: "Kairos Sans W1G";
   background: black;
 
   font-size: 0.8em;

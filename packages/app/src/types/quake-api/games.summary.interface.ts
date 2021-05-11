@@ -1,5 +1,5 @@
-import { IGamesSummaryMatchesItem } from "./games-summary-matches.item.interface";
+import { GamesSummaryMatchesItem } from "./games-summary-matches.item.interface";
 
-export interface IGamesSummary {
-    matches: IGamesSummaryMatchesItem[]
+export interface GamesSummary {
+    matches: GamesSummaryMatchesItem[]
 }

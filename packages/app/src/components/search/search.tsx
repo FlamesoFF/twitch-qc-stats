@@ -3,10 +3,16 @@ import { Button, ButtonToolbar, Container, Form, FormText, ProgressBar } from "r
 import { statsApi } from '../../api/api.class';
 import store from '../../store/store';
 import React from "react";
-import { SEARCH_ACTION_TYPES } from '../../store/actions/search.actions';
 import { ILeaderboardItem } from '../../types/quake-api/leaderboard-item.interface';
 import { BsSearch, ImCross } from "react-icons/all";
 import AppPlayerCard from '../player-card/player-card';
+import {
+  clearSearchResult,
+  disableSearch,
+  enableSearch,
+  saveSearchResult,
+  searchError
+} from "../../store/reducers/search.reducer";
 
 export default class AppSearch extends React.Component<any, any> {
   state = store.getState();
@@ -22,15 +28,15 @@ export default class AppSearch extends React.Component<any, any> {
 
   reset() {
     this.stop();
-    store.dispatch({ type: SEARCH_ACTION_TYPES.clearSearchResult });
+    store.dispatch(clearSearchResult());
   }
 
   enable() {
-    store.dispatch({ type: SEARCH_ACTION_TYPES.enableSearch });
+    store.dispatch(enableSearch());
   }
 
   disable() {
-    store.dispatch({ type: SEARCH_ACTION_TYPES.disableSearch });
+    store.dispatch(disableSearch() );
     this.clear();
     this.reset();
   }
@@ -69,11 +75,11 @@ export default class AppSearch extends React.Component<any, any> {
           namePlateId: data.playerLoadOut.namePlateId
         };
 
-        store.dispatch({ type: SEARCH_ACTION_TYPES.saveSearchResult, stats });
+        store.dispatch(saveSearchResult(stats));
       }
     } catch (error) {
-      store.dispatch({ type: SEARCH_ACTION_TYPES.clearSearchResult });
-      store.dispatch({ type: SEARCH_ACTION_TYPES.searchError });
+      store.dispatch(clearSearchResult());
+      store.dispatch(searchError());
     }
 
     this.stop();
@@ -121,14 +127,13 @@ export default class AppSearch extends React.Component<any, any> {
 
           <div className="result">
             {
-              this.state.search?.result === true &&
+              Boolean(this.state.search?.result) === true &&
               <div>
                 <h3>Player search result:</h3>
 
                 {
                   this.state.search?.error === true &&
-                  <AppPlayerCard data={this.state.search?.result}
-                    position={123}/>
+                  <AppPlayerCard/>
                 }
 
               </div>

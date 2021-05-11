@@ -1,6 +1,6 @@
-import { IRating } from "./rating.interface";
+import { Rating } from "./rating.interface";
 
-export interface IPlayerRatings {
-    duel: IRating;
-    tdm: IRating;
+export interface PlayerRatings {
+    duel: Rating;
+    tdm: Rating;
 }

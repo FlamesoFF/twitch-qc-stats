@@ -1,14 +1,14 @@
-import { IPlayerRatings } from "./player-ratings.interface";
-import { IPlayerLoadOut } from "./player-loadout.interface";
-import { IPlayerProfileStats } from "./player-profile-stats.interface";
-import { IPlayerLevelState } from "./player-level.state.interface";
-import { IMatchesItem } from "./matches.item.interface";
+import { PlayerRatings } from "./player-ratings.interface";
+import { PlayerLoadOut } from "./player-loadout.interface";
+import { PlayerProfileStats } from "./player-profile-stats.interface";
+import { PlayerLevelState } from "./player-level.state.interface";
+import { Match } from "./matches.item.interface";
 
-export interface IPlayerStats {
+export interface PlayerStats {
     name: string;
-    playerRatings: IPlayerRatings;
-    playerLoadOut: IPlayerLoadOut;
-    playerProfileStats: IPlayerProfileStats;
-    playerLevelState: IPlayerLevelState;
-    matches: IMatchesItem[];
+    playerRatings: PlayerRatings;
+    playerLoadOut: PlayerLoadOut;
+    playerProfileStats: PlayerProfileStats;
+    playerLevelState: PlayerLevelState;
+    matches: Match[];
 }

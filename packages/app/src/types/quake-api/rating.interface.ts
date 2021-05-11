@@ -1,6 +1,6 @@
 import { HistoryItem } from "./history-item.interface";
 
-export interface IRating {
+export interface Rating {
     rating: number;
     deviation: number;
     volitility: number;

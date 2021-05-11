@@ -1,145 +1,80 @@
-import store from "../../store/store";
-import { statsApi } from "../../api/api.class";
-import { TwitchConfiguration } from "../../shared/TwitchConfiguration";
-import { Card, Container, ProgressBar } from "react-bootstrap";
-import { ILeaderboardItem } from "../../types/quake-api/leaderboard-item.interface";
-import { STREAMER_ACTION_TYPES } from "../../store/actions/streamer.actions";
+import './panel.scss';
+import AppPlayerCard from "../player-card/player-card";
 import React from "react";
-import { BUSY_ACTION_TYPES } from "../../store/actions/busy.actions";
+import store from "../../store/store";
 import { twitchAPI } from "../../static/twitch";
-import { loadStreamerStats } from "../../store/thunks/stats-api.thunks";
+import { TwitchConfiguration } from "../../types/titch-configuration.interface";
+import { Col, Container, Row } from "react-bootstrap";
+import { disableBusy, enableBusy } from "../../store/reducers/busy.reducer";
+import { getLeaders, loadStreamerStats } from "src/store/thunks/stats-api.thunks";
+import { ILeaderboardItem } from "../../types/quake-api/leaderboard-item.interface";
 
 
 export default class Panel extends React.Component {
+  state = {
+    ready: false
+  };
   players: ILeaderboardItem[] = [];
   listOffset = 0;
   search = undefined;
-  connecting = {
-    message: 'Connecting to stats.quake.com',
-    dots: '.'
-  };
-
   scrollOptions = {
     duration: 100,
-    offset: 200,
-    easing: 'easeInOutCubic'
+    easing: 'easeInOutCubic',
+    offset: 200
   };
 
-  get appState() {
-    return store.getState();
-  }
-
-  constructor(args: any) {
-    super(args);
-
-    twitchAPI.configuration.onChanged(() => {
-      const { broadcaster: { content = null } = {} } = twitchAPI.configuration;
+  async componentDidMount() {
+    twitchAPI.configuration.onChanged(async () => {
+      const {
+        broadcaster: {
+          content = null
+        } = {}
+      } = twitchAPI.configuration as TwitchConfiguration;
 
       if (content) {
         try {
-          this.loadStreamerStats();
+          await store.dispatch(loadStreamerStats());
         } catch (error) {
           console.error('EXTENSION ERROR: Invalid configuration');
         }
       }
     });
-  }
 
-  // HOOKS
-  async componentDidMount() {
     await this.preloadData();
-  }
 
-  // LOGIC
-  async preloadData() {
-    store.dispatch({ type: BUSY_ACTION_TYPES.enableBusy });
-
-    await this.loadStreamerStats();
-    await this.getLeaders();
-    await this.loadPlayersStats();
-
-    store.dispatch({ type: BUSY_ACTION_TYPES.disableBusy });
-  }
-
-  async loadPlayersStats() {
-    const leaders = await statsApi.getLeaders();
-
-    if (leaders.entries) {
-      leaders.entries = leaders.entries.slice(0, 10);
-
-      this.players = leaders.entries;
-    }
-  }
-
-  async loadStreamerStats() {
-    const { broadcaster: { content = null } = {} } = twitchAPI.configuration;
-    const { name } = JSON.parse(content);
-    const stats = await statsApi.getPlayerStats(name);
-
-    store.dispatch({
-      type: STREAMER_ACTION_TYPES.setStreamer,
-      data: stats
-    });
-  }
-
-  async getLeaders() {
-    const data = await statsApi.getLeaders();
-
-    if (data) {
-      this.players = data.entries.slice(0, 10);
-
-      return true;
-    }
+    this.setState({ready: true});
   }
 
   render() {
     return (
-      <Container className={'content'}>
-        <img src="../../../../../assets/images/design/title.png"/>
+      <Container className="content p-0">
+        <Row>
+          <Col className="d-flex justify-content-center">
+            <img alt=""
+                 src={ `${ process.env.PUBLIC_URL }/assets/images/design/title.png` }/>
+          </Col>
+        </Row>
 
-        <Card style={{ height: "100%" }}
-          className={'loader'}
-          v-if="busy">
-
-          <h3>{this.connecting.message}</h3>
-
-          <ProgressBar now={60}/>
-
-        </Card>
-
-        <Card className={'mainCard'}
-          v-if="!busy">
-
-          {/*<app-player-details name="'flamesoff'"></app-player-details>*/}
-
-          {/*<AppSearch/>*/}
-
-          <Container className={'statsContainer'}>
-
-            <div v-if="config && config.streamerName && !searchEnabled && streamer">
-              <h3>Streamer</h3>
-
-              {/*<app-player-card v-if="streamer"
-              data="streamer"            > </app-player-card>*/}
-
-              {/*<app-player-details name="streamer.userName"></app-player-details>*/}
-
-            </div>
-
-            <h3>Top 10</h3>
-
-
-            {/*<app-player-card v-for="(player, index) in players"
-                             data="player"
-                             position="listOffset + index + 1"
-                             v-bind:key="index"></app-player-card>*/}
-
-
-          </Container>
-
-        </Card>
-
+        {
+          this.state.ready &&
+          <Row className="pt-2">
+            <Col>
+              <AppPlayerCard/>
+            </Col>
+          </Row>
+        }
       </Container>
     );
+  }
+
+  private async preloadData() {
+    store.dispatch(enableBusy());
+
+    await Promise.all([
+      store.dispatch(loadStreamerStats()),
+      store.dispatch(getLeaders())
+    ]);
+
+    store.dispatch(disableBusy());
   }
 }

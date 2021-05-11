@@ -1,4 +1,4 @@
-import { IGamesSummaryWeaponAccuracy } from "../../types/quake-api/i-games-summary-weapon.accuracy.interface";
+import { IGamesSummaryWeaponAccuracy } from "../../types/quake-api/games-summary-weapon.accuracy.interface";
 
 export class WeaponsAccuracy implements IGamesSummaryWeaponAccuracy {
     GAUNTLET: number = 0;

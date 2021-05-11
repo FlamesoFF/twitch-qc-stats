@@ -1,4 +1,4 @@
-import { defaults } from "../static/defaults";
+import { RANKS } from "../constants";
 
 export function getRankIcon(rating: number) {
   const min = 700;
@@ -10,8 +10,8 @@ export function getRankIcon(rating: number) {
   );
 
   if (rank <= 21) {
-    return defaults.ranks[rank];
+    return RANKS[rank];
   } else {
-    return defaults.ranks[defaults.ranks.length - 1];
+    return RANKS[RANKS.length - 1];
   }
 }

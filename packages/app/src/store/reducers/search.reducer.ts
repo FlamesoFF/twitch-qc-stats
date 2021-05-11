@@ -1,51 +1,61 @@
-import { AppReducer } from "../../types/reducer.class";
-import { ReducerMap } from "../../types/store/reducer-map.interface";
-import { defaultSearchState, SearchState } from "../default-state";
-import { SEARCH_ACTION_TYPES, SEARCH_ACTIONS } from "../actions/search.actions";
-import { AppAction } from "../app-action.class";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { ILeaderboardItem } from "../../types/quake-api/leaderboard-item.interface";
 
 
-class SearchReducer extends AppReducer<SEARCH_ACTION_TYPES, SearchState> {
-  reduce(state= defaultSearchState, action: AppAction<SEARCH_ACTION_TYPES>) {
-    return super.reduce(state, action);
+const searchSlice = createSlice({
+  name: 'search',
+
+  initialState: {
+    enabled: false,
+    error: false,
+    result: undefined as unknown as ILeaderboardItem
+  },
+
+  reducers: {
+    enableSearch(state) {
+      state.enabled = true;
+      return state;
+    },
+
+    disableSearch(state) {
+      state.enabled = false;
+      return state;
+    },
+
+    clearSearchResult(state) {
+      state.result = {} as ILeaderboardItem;
+      return state;
+    },
+
+    saveSearchResult(state,  action: PayloadAction<ILeaderboardItem>) {
+      state.result = action.payload;
+      return state;
+    },
+
+    resetSearch(state) {
+      state.result = {} as ILeaderboardItem;
+      state.error = false;
+
+      return state;
+    },
+    searchError(state) {
+      state.error = true;
+      return state;
+    },
+
+    searchStop(state) {
+      return state;
+    }
   }
-}
+});
 
-const reducers: ReducerMap<SEARCH_ACTION_TYPES> = {
-  [SEARCH_ACTION_TYPES.clearSearchResult]: (state = defaultSearchState) => {
-    state.search.result = {};
-    return state;
-  },
-
-  [SEARCH_ACTION_TYPES.disableSearch]: (state = defaultSearchState) => {
-    state.search.enabled = false;
-    return state;
-  },
-
-  [SEARCH_ACTION_TYPES.enableSearch]: (state = defaultSearchState) => {
-    state.search.enabled = true;
-    return state;
-  },
-
-  [SEARCH_ACTION_TYPES.resetSearch]: (state = defaultSearchState) => {
-    state.search.result = <any>{};
-    state.search.error = false;
-    return state;
-  },
-
-  [SEARCH_ACTION_TYPES.saveSearchResult]: (state = defaultSearchState, action: typeof SEARCH_ACTIONS.saveSearchResult) => {
-    state.search.result = action.data;
-    return state;
-  },
-
-  [SEARCH_ACTION_TYPES.searchError]: (state = defaultSearchState) => {
-    state.search.error = true;
-    return state;
-  },
-
-  [SEARCH_ACTION_TYPES.searchStop]: (state = defaultSearchState) => {
-    return state;
-  },
-}
-
-export const searchReducer = new SearchReducer(reducers);
+export default searchSlice;
+export const {
+  enableSearch,
+  searchStop,
+  searchError,
+  saveSearchResult,
+  disableSearch,
+  clearSearchResult,
+  resetSearch
+} = searchSlice.actions;

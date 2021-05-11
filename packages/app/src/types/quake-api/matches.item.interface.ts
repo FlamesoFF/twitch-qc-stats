@@ -1,4 +1,4 @@
-export interface IMatchesItem {
+export interface Match {
     id: string;
     playedDateTime: string;
     gameMode: null;

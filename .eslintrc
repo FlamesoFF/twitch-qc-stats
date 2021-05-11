@@ -8,6 +8,18 @@
     "semi": "warn",
     "no-extra-semi": "warn",
     "semi-style": "warn",
-    "sort-imports": "warn"
-  }
+    "sort-keys": "error",
+    "jsx-quotes": [
+      "error",
+      "prefer-double"
+    ]
+  },
+  "overrides": [
+    {
+      "files": [
+        "**/*.ts",
+        "**/*.tsx"
+      ]
+    }
+  ]
 }

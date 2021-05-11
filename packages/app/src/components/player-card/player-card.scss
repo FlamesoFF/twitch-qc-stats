@@ -1,81 +1,46 @@
-.playerCardContainer {
-  display: flex;
-  flex-direction: row;
+.player-card {
+  position: relative;
   color: white;
-  margin-bottom: 5px;
-  width: 230px;
-  height: 50px;
   text-shadow: 1px 1px 2px black;
+  width: 100%;
+  height: 80px;
 
-  > .position {
-    padding: 15px 0;
-    width: 40px;
+  > .plate {
+    width: 100%;
+    height: 100%;
+    background-size: 100% 100%;
+    z-index: 0;
   }
 
-  > .playerCard {
-    display: flex;
-    color: white;
-    background: none;
+  > .avatar {
+    $offset: 8px;
+    $size: 64px;
 
-    > .info {
-      display: flex;
-      flex-direction: row;
-      align-items: flex-start;
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      padding: 0;
+    position: absolute;
+    z-index: 1;
+    left: $offset;
+    top: $offset;
+    height: $size;
+    width: $size;
+    background-size: 100% 100%;
+  }
 
-      > .avatar {
-        padding: 8px;
-        height: 50px;
-        width: 50px;
+  > .text-info {
+    position: absolute;
+    left: 0;
+    top: 0;
+    margin-left: 80px;
+    width: 220px;
+    line-height: 20px;
 
-        img {
-          height: 100%;
-          width: 100%;
-        }
-      }
-
-      > .text {
-        padding: 6px;
-
-        > .elo {
-          display: flex;
-          flex-direction: row;
-          padding-top: 2px;
-
-          > img {
-            width: 20px;
-            height: 20px;
-          }
-
-          > .value {
-            font-size: 1.1em;
-            padding: 0 0 0 4px;
-          }
-        }
-      }
+    .name {
+      padding-top: 20px;
+      font-size: 2em;
+      line-height: 16px;
     }
 
-    > img {
-      width: 100%;
+    .details {
+      font-size: 0.8em;
     }
   }
-/*
-  &.streamer {
-    font-size: 1.2em;
-    width: 260px;
-    height: 64px;
-
-    > .playerCard {
-      .info {
-        .avatar {
-        }
-
-        .text {
-        }
-      }
-    }
-  }*/
 }

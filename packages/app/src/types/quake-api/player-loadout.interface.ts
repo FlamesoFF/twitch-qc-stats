@@ -1,4 +1,4 @@
-export interface IPlayerLoadOut {
+export interface PlayerLoadOut {
     namePlateId: string;
     iconId: string;
 }
